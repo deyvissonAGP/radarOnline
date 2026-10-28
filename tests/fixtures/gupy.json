@@ -1,0 +1,56 @@
+{
+  "data": [
+    {
+      "id": 9123401,
+      "companyId": 501,
+      "name": "Desenvolvedor PHP Pleno (Laravel)",
+      "description": "<p>Buscamos pessoa desenvolvedora <b>PHP</b> com Laravel e PostgreSQL. Contratação CLT.</p>",
+      "careerPageName": "Acme Tecnologia",
+      "type": "vacancy_type_effective",
+      "publishedDate": "2026-10-27T13:20:00.000Z",
+      "applicationDeadline": "2026-11-30",
+      "isRemoteWork": true,
+      "city": "",
+      "state": "",
+      "country": "Brasil",
+      "jobUrl": "https://acme.gupy.io/jobs/9123401?jobBoardSource=gupy_portal",
+      "workplaceType": "remote",
+      "skills": []
+    },
+    {
+      "id": 9123402,
+      "name": "Analista de Sistemas Sênior - WordPress",
+      "description": "Manutenção de sites WordPress e WooCommerce. Modelo híbrido em São Luís.",
+      "careerPageName": "Beta Comunicação",
+      "publishedDate": "2026-10-26T09:00:00.000Z",
+      "isRemoteWork": false,
+      "city": "São Luís",
+      "state": "Maranhão",
+      "jobUrl": "https://beta.gupy.io/jobs/9123402",
+      "workplaceType": "hybrid"
+    },
+    {
+      "id": 9123403,
+      "name": "Curso de Formação PHP do Zero",
+      "description": "Aprenda PHP em 30 dias. Inscreva-se no curso!",
+      "careerPageName": "Escola X",
+      "publishedDate": "2026-10-27T10:00:00.000Z",
+      "jobUrl": "https://escolax.gupy.io/jobs/9123403",
+      "workplaceType": "remote"
+    },
+    {
+      "id": 9123404,
+      "name": "Vendedor Interno",
+      "description": "Vendas de planos de telefonia.",
+      "careerPageName": "Gama Telecom",
+      "publishedDate": "2026-10-27T10:00:00.000Z",
+      "jobUrl": "https://gama.gupy.io/jobs/9123404",
+      "workplaceType": "on-site"
+    },
+    {
+      "name": "Item sem id deve ser ignorado",
+      "jobUrl": "https://x.gupy.io/jobs/0"
+    }
+  ],
+  "pagination": { "offset": 0, "limit": 100, "total": 5 }
+}

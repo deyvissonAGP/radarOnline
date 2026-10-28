@@ -1,0 +1,104 @@
+# Produção. Suba com: docker compose -f docker-compose.prod.yml up -d --build
+# Lê o .env desta pasta (copie de .env.producao.example).
+#
+# O site escuta só em 127.0.0.1:${RADAR_PORTA}: o proxy reverso do servidor
+# (nginx, Caddy...) atende o subdomínio com HTTPS e repassa para cá.
+# O banco não abre porta nenhuma para fora.
+
+name: radar-vagas
+
+x-padrao: &padrao
+  restart: unless-stopped
+  logging:
+    driver: json-file
+    options:
+      max-size: "10m"
+      max-file: "3"
+
+x-laravel: &laravel
+  <<: *padrao
+  build:
+    context: .
+    dockerfile: docker/producao/Dockerfile
+  image: radar-vagas:latest
+  env_file: .env
+  volumes:
+    - storage:/app/storage
+  depends_on:
+    db:
+      condition: service_healthy
+
+services:
+  app:
+    <<: *laravel
+    environment:
+      RODAR_MIGRATIONS: "1"
+    ports:
+      - "127.0.0.1:${RADAR_PORTA:-8090}:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8080/up"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # Coleta a cada 3 horas, avisa no Telegram e manda o resumo das 8h (routes/console.php).
+  scheduler:
+    <<: *laravel
+    command: ["php", "artisan", "schedule:work"]
+    # A imagem traz um healthcheck do servidor web, que o agendador não roda.
+    healthcheck:
+      disable: true
+    # Espera o site subir: as migrations rodam lá, e os dois não podem criar o volume ao mesmo tempo.
+    depends_on:
+      db:
+        condition: service_healthy
+      app:
+        condition: service_healthy
+
+  db:
+    <<: *padrao
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-radar}
+      POSTGRES_USER: ${DB_USERNAME:-radar}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?defina DB_PASSWORD no .env}
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      retries: 10
+
+  # Backup diário do banco em ./backups, guardando os últimos 14 dias.
+  backup:
+    <<: *padrao
+    image: postgres:16-alpine
+    environment:
+      PGHOST: db
+      PGDATABASE: ${DB_DATABASE:-radar}
+      PGUSER: ${DB_USERNAME:-radar}
+      PGPASSWORD: ${DB_PASSWORD:?defina DB_PASSWORD no .env}
+    volumes:
+      - ./backups:/backups
+    depends_on:
+      db:
+        condition: service_healthy
+    entrypoint: ["sh", "-c"]
+    command:
+      - |
+        while true; do
+          arquivo=/backups/radar-$$(date +%F).sql.gz
+          if pg_dump | gzip > "$$arquivo.tmp"; then
+            mv "$$arquivo.tmp" "$$arquivo"
+            echo "backup ok: $$arquivo"
+          else
+            rm -f "$$arquivo.tmp"
+            echo "backup FALHOU"
+          fi
+          find /backups -name 'radar-*.sql.gz' -mtime +14 -delete
+          sleep 86400
+        done
+
+volumes:
+  dbdata:
+  storage:

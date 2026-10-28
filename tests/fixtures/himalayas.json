@@ -1,0 +1,145 @@
+{
+  "comments": "Search results come 20 to a page. Pass ?page=2, ?page=3 and so on for more; there is no cursor on search. Cursor pagination (nextCursor) is only on /jobs/api, the browse feed. 13/03/2026: The API has been updated to include the companySlug field in the response.",
+  "offset": 0,
+  "limit": 20,
+  "totalCount": 147,
+  "jobs": [
+    {
+      "title": "Senior PHP Engineer",
+      "excerpt": "What You Will Do Architect Backend Services: Design and develop new business-led content management services and APIs with an emphasis on performance, scalability, and reliability.",
+      "companyName": "Lumiere Systems",
+      "companySlug": "lumiere-systems",
+      "companyLogo": "https://cdn-images.himalayas.app/3d4uhusmyubhbat9h4ge7lxjzsg8",
+      "employmentType": "Full Time",
+      "minSalary": 60000,
+      "maxSalary": 84000,
+      "salaryPeriod": "annual",
+      "seniority": [
+        "Senior"
+      ],
+      "currency": "USD",
+      "locationRestrictions": [
+        "Brazil"
+      ],
+      "timezoneRestrictions": [
+        -5,
+        -4,
+        -3,
+        -2
+      ],
+      "categories": [
+        "Senior-PHP-Engineer",
+        "Backend-Engineer",
+        "Software-Engineer",
+        "API-Engineer",
+        "Platform-Engineer",
+        "Senior-PHP-Developer",
+        "Senior-PHP-Architect",
+        "Lead-PHP-Engineer",
+        "Senior-PHP-Tech-Lead",
+        "Senior-PHP-Development",
+        "Senior-Full-Stack-PHP-Developer",
+        "PHP-Engineer",
+        "PHP-Software-Engineer",
+        "Team-Lead-PHP-Engineer"
+      ],
+      "parentCategories": [
+        "Developer"
+      ],
+      "description": "<h3>What You Will Do</h3><p>        Architect Backend Services: Design and develop new business-led content management services and APIs with an emphasis on performance, scalability, and reliability.</p><p>        Drive Full-Stack Solutions: Work closely with DevOps on backend solutions to complex problems, ensuring scale and availability across our content platforms.</p><p>        Build CMS Infra",
+      "pubDate": 1793134105,
+      "expiryDate": 1798318103,
+      "applicationLink": "https://himalayas.app/companies/lumiere-systems/jobs/senior-php-engineer-273473223?utm_source=api",
+      "guid": "https://himalayas.app/companies/lumiere-systems/jobs/senior-php-engineer-273473223"
+    },
+    {
+      "title": "Senior PHP / WordPress Backend & Automation Developer",
+      "excerpt": "We are looking for an experienced Senior PHP / WordPress Backend & Automation Developer to support a growing, U.",
+      "companyName": "Freelance Latin America",
+      "companySlug": "freelance-latin-america",
+      "companyLogo": "https://cdn-images.himalayas.app/0yek6p3wie13e1yr0uoxiuuob1ba",
+      "employmentType": "Full Time",
+      "minSalary": 30,
+      "maxSalary": 40,
+      "salaryPeriod": "hourly",
+      "seniority": [
+        "Senior"
+      ],
+      "currency": "USD",
+      "locationRestrictions": [
+        "Brazil"
+      ],
+      "timezoneRestrictions": [
+        -5,
+        -4,
+        -3,
+        -2
+      ],
+      "categories": [
+        "PHP-Developer",
+        "WordPress-Developer",
+        "Backend-Engineer",
+        "Automation-Developer",
+        "Software-Engineer",
+        "Senior-PHP-Developer",
+        "Senior-PHP-Engineer",
+        "Backend-PHP-Developer",
+        "Senior-PHP-Development",
+        "Senior-Automation-Developer",
+        "Senior-Backend-Development"
+      ],
+      "parentCategories": [
+        "Developer"
+      ],
+      "description": "<p>We are looking for an experienced <strong>Senior PHP / WordPress Backend &amp; Automation Developer</strong> to support a growing, U.S.-based membership platform. This role combines backend development, custom plugin development, API integrations, and no-code/low-code automation.</p><p>You will work closely with the Head of Development, taking ownership of technical projects, resolving complex ",
+      "pubDate": 1792994395,
+      "expiryDate": 1798178394,
+      "applicationLink": "https://himalayas.app/companies/freelance-latin-america/jobs/senior-php-wordpress-backend-automation-developer?utm_source=api",
+      "guid": "https://himalayas.app/companies/freelance-latin-america/jobs/senior-php-wordpress-backend-automation-developer"
+    },
+    {
+      "title": "Sem identificador",
+      "excerpt": "We are looking for an experienced Senior PHP / WordPress Backend & Automation Developer to support a growing, U.",
+      "companyName": "Freelance Latin America",
+      "companySlug": "freelance-latin-america",
+      "companyLogo": "https://cdn-images.himalayas.app/0yek6p3wie13e1yr0uoxiuuob1ba",
+      "employmentType": "Full Time",
+      "minSalary": 30,
+      "maxSalary": 40,
+      "salaryPeriod": "hourly",
+      "seniority": [
+        "Senior"
+      ],
+      "currency": "USD",
+      "locationRestrictions": [
+        "Brazil"
+      ],
+      "timezoneRestrictions": [
+        -5,
+        -4,
+        -3,
+        -2
+      ],
+      "categories": [
+        "PHP-Developer",
+        "WordPress-Developer",
+        "Backend-Engineer",
+        "Automation-Developer",
+        "Software-Engineer",
+        "Senior-PHP-Developer",
+        "Senior-PHP-Engineer",
+        "Backend-PHP-Developer",
+        "Senior-PHP-Development",
+        "Senior-Automation-Developer",
+        "Senior-Backend-Development"
+      ],
+      "parentCategories": [
+        "Developer"
+      ],
+      "description": "<p>We are looking for an experienced <strong>Senior PHP / WordPress Backend &amp; Automation Developer</strong> to support a growing, U.S.-based membership platform. This role combines backend development, custom plugin development, API integrations, and no-code/low-code automation.</p><p>You will work closely with the Head of Development, taking ownership of technical projects, resolving complex ",
+      "pubDate": 1792994395,
+      "expiryDate": 1798178394,
+      "applicationLink": "https://himalayas.app/companies/freelance-latin-america/jobs/senior-php-wordpress-backend-automation-developer?utm_source=api"
+    }
+  ]
+}

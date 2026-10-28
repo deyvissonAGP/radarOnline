@@ -1,0 +1,38 @@
+[
+  {
+    "id": 3001,
+    "number": 12001,
+    "title": "[Remoto] Desenvolvedor Back-end PHP Sênior @ Delta Software",
+    "html_url": "https://github.com/backend-br/vagas/issues/12001",
+    "created_at": "2026-10-27T18:00:00Z",
+    "body": "## Requisitos\n- PHP 8\n- Symfony\n- Docker\n\nContratação PJ.",
+    "labels": [{ "name": "PHP" }, { "name": "Remoto" }, { "name": "PJ" }, { "name": "Sênior" }]
+  },
+  {
+    "id": 3002,
+    "number": 12002,
+    "title": "[São Paulo] Desenvolvedor Node.js Pleno @ Epsilon",
+    "html_url": "https://github.com/backend-br/vagas/issues/12002",
+    "created_at": "2026-10-27T15:00:00Z",
+    "body": "Node, TypeScript e AWS.",
+    "labels": [{ "name": "Pleno" }]
+  },
+  {
+    "id": 3003,
+    "number": 12003,
+    "title": "Grupo de vagas PHP no WhatsApp",
+    "html_url": "https://github.com/backend-br/vagas/issues/12003",
+    "created_at": "2026-10-27T15:00:00Z",
+    "body": "Entre no grupo: https://chat.whatsapp.com/abc",
+    "labels": []
+  },
+  {
+    "id": 3004,
+    "number": 12004,
+    "title": "Atualiza README",
+    "html_url": "https://github.com/backend-br/vagas/pull/12004",
+    "created_at": "2026-10-27T15:00:00Z",
+    "pull_request": { "url": "x" },
+    "labels": []
+  }
+]

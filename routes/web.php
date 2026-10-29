@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AcessoController;
+use App\Http\Controllers\RotinasController;
 use App\Http\Controllers\VagasController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,3 +14,7 @@ Route::get('/resumo', [VagasController::class, 'resumo'])->name('vagas.resumo');
 Route::get('/regras', [VagasController::class, 'regras'])->name('vagas.regras');
 Route::get('/saude', [VagasController::class, 'saude'])->name('vagas.saude');
 Route::post('/vagas/{vaga}/status', [VagasController::class, 'marcar'])->name('vagas.marcar');
+
+Route::get('/rotinas', [RotinasController::class, 'index'])->name('rotinas.index');
+Route::get('/rotinas/estado', [RotinasController::class, 'estado'])->name('rotinas.estado');
+Route::post('/rotinas/{rotina}', [RotinasController::class, 'executar'])->name('rotinas.executar');

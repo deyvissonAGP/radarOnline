@@ -14,6 +14,7 @@ Só contam vagas publicadas nas últimas **72 horas** (configurável).
 | Situação de cada fonte (ok / falhando) | topo da página |
 | Resumo do dia com botão de copiar | `/resumo` |
 | Regras do filtro, itens descartados e histórico de coletas | `/regras` |
+| Botões para coletar, reaplicar regras, limpar e usar o Telegram, com histórico e saída de cada execução | `/rotinas` |
 | Coleta manual | `php artisan vagas:coletar` |
 | Aviso de vagas novas no Telegram | `php artisan vagas:notificar` |
 | Resumo no terminal (e no Telegram com `--telegram`) | `php artisan vagas:resumo` |

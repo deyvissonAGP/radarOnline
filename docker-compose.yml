@@ -27,6 +27,18 @@ services:
       db:
         condition: service_healthy
 
+  # Executa as rotinas pedidas pelos botões da página /rotinas.
+  worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - .:/app
+    command: php artisan queue:work --timeout=600 --tries=1 --sleep=3
+    depends_on:
+      db:
+        condition: service_healthy
+
   scheduler:
     build:
       context: .

@@ -11,6 +11,7 @@ internet ──HTTPS──► proxy que você já usa (nginx, Caddy...) ──HT
                                            ┌────────────────────────────┤ docker-compose.prod.yml
                                            │ app        site (FrankenPHP), pede usuário e senha
                                            │ scheduler  coleta a cada 3h, Telegram, resumo das 8h
+                                           │ worker     executa os botões da página /rotinas
                                            │ db         Postgres, sem porta aberta para fora
                                            │ backup     pg_dump diário em ./backups (14 dias)
                                            └────────────────────────────
@@ -19,7 +20,9 @@ internet ──HTTPS──► proxy que você já usa (nginx, Caddy...) ──HT
 O Radar **não ocupa as portas 80 e 443**: quem atende o subdomínio e cuida do certificado
 é o proxy que já serve seus outros projetos.
 
-**Depois de subir, nada precisa ser rodado à mão.** O `scheduler` coleta a cada 3 horas,
+**Depois de subir, nada precisa ser rodado à mão.** Tudo o que antes exigia `artisan`
+(coletar, reaplicar regras, testar e usar o Telegram) também tem botão na página **Rotinas**
+do site, com o histórico e a saída de cada execução. O `scheduler` coleta a cada 3 horas,
 avisa no Telegram e manda o resumo às 8h. Todos os serviços têm `restart: unless-stopped`
 e voltam sozinhos depois de um reboot do servidor (desde que o Docker inicie com o sistema:
 `sudo systemctl enable docker`).
@@ -126,11 +129,17 @@ rede do proxy e aponte o proxy para `radar-vagas-app-1:8080`. Me chame que eu aj
 
 ## 6. Primeira coleta e Telegram
 
+Pelo site, em **Rotinas**: clique em **Coletar vagas** (1 a 2 minutos) e depois em
+**Marcar tudo como enviado**, para não receber centenas de vagas de uma vez no Telegram.
+Com o Telegram configurado, **Testar o Telegram** confere o token e o chat.
+
+Pelo terminal, se preferir:
+
 ```bash
 alias radar='docker compose -f docker-compose.prod.yml exec scheduler php artisan'
 
-radar vagas:coletar                       # primeira coleta (1 a 2 minutos)
-radar vagas:notificar --marcar-enviadas   # evita receber centenas de vagas de uma vez
+radar vagas:coletar
+radar vagas:notificar --marcar-enviadas
 ```
 
 Abra `https://radar.confeitae.com.br`: aparece a tela de login (usuário e senha do `.env`).

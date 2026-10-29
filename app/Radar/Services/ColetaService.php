@@ -3,6 +3,7 @@
 namespace App\Radar\Services;
 
 use App\Models\Coleta;
+use App\Models\Execucao;
 use App\Models\Vaga;
 use App\Radar\Classifier;
 use App\Radar\Contracts\Collector;
@@ -185,6 +186,7 @@ final class ColetaService
     {
         $limite = now()->subDays((int) config('vagas.manter_dias', 30));
         Coleta::where('executada_em', '<', $limite)->delete();
+        Execucao::where('pedida_em', '<', $limite)->delete();
         Vaga::whereNotNull('duplicada_de')->where('publicada_em', '<', $limite)->delete();
 
         return Vaga::where('publicada_em', '<', $limite)

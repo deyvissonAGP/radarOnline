@@ -54,6 +54,7 @@
                 <a href="{{ route('vagas.index') }}" @class(['ativo' => request()->routeIs('vagas.index')])>Vagas</a>
                 <a href="{{ route('vagas.resumo') }}" @class(['ativo' => request()->routeIs('vagas.resumo')])>Resumo</a>
                 <a href="{{ route('vagas.regras') }}" @class(['ativo' => request()->routeIs('vagas.regras')])>Regras</a>
+                <a href="{{ route('rotinas.index') }}" @class(['ativo' => request()->routeIs('rotinas.*')])>Rotinas</a>
                 @if (session(\App\Radar\Services\Acesso::SESSAO))
                     <form method="post" action="{{ route('sair') }}">
                         @csrf

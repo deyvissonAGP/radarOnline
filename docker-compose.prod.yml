@@ -55,6 +55,19 @@ services:
       app:
         condition: service_healthy
 
+  # Executa as rotinas pedidas pelos botões da página /rotinas.
+  # --max-time: reinicia a cada hora (o restart do Docker o traz de volta), para não acumular memória.
+  worker:
+    <<: *laravel
+    command: ["php", "artisan", "queue:work", "--timeout=600", "--tries=1", "--sleep=3", "--max-time=3600"]
+    healthcheck:
+      disable: true
+    depends_on:
+      db:
+        condition: service_healthy
+      app:
+        condition: service_healthy
+
   db:
     <<: *padrao
     image: postgres:16-alpine

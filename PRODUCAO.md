@@ -29,8 +29,11 @@ e voltam sozinhos depois de um reboot do servidor (desde que o Docker inicie com
 
 ## 1. DNS
 
-No painel do domínio, crie um registro **A** `radar` apontando para o IP do servidor
-(o mesmo IP de `confeitae.com.br`, se for o mesmo servidor).
+**Com Cloudflare Tunnel (o caso deste servidor), pule este passo:** o comando
+`cloudflared tunnel route dns` do passo 5 cria o registro sozinho.
+
+Com nginx ou Caddy, crie no painel do domínio um registro **A** `radar` apontando para o IP
+do servidor (o mesmo IP de `confeitae.com.br`, se for o mesmo servidor).
 
 ## 2. Código no servidor
 
@@ -80,7 +83,36 @@ curl -s -u USUARIO:SENHA http://127.0.0.1:8090/ | head -5
 
 ## 5. Proxy reverso
 
-Descubra qual proxy o servidor usa: `sudo ss -ltnp | grep ':443'`.
+Descubra qual proxy o servidor usa: `sudo ss -ltnp | grep ':443'` ou `ls /etc/cloudflared/`.
+
+### Cloudflare Tunnel (usado neste servidor)
+
+Com o túnel, o servidor não abre porta nenhuma: o `cloudflared` publica cada subdomínio e a
+Cloudflare cuida do HTTPS. Não precisa de certbot nem de criar o DNS na mão.
+
+```bash
+sudo cp /etc/cloudflared/config.yml /etc/cloudflared/config.yml.bak-$(date +%F)
+sudo nano /etc/cloudflared/config.yml
+```
+
+Dentro de `ingress:`, junto com os outros projetos e **antes** da linha `- service: http_status:404`:
+
+```yaml
+  - hostname: radar.confeitae.com.br
+    service: http://127.0.0.1:8090      # a mesma porta de RADAR_PORTA
+```
+
+```bash
+sudo cloudflared tunnel --config /etc/cloudflared/config.yml ingress validate
+cloudflared tunnel route dns ID_DO_TUNEL radar.confeitae.com.br   # sem sudo: usa o cert.pem do seu usuário
+sudo systemctl restart cloudflared
+```
+
+O `ID_DO_TUNEL` é o nome do arquivo `.json` em `/etc/cloudflared/`. O restart reinicia o túnel
+de todos os projetos: se algum parar, volte o backup do `config.yml` e reinicie de novo.
+
+Se o túnel for gerenciado pelo painel (Zero Trust → Networks → Tunnels), adicione um
+*Public Hostname* `radar` → `HTTP` → `127.0.0.1:8090`.
 
 ### nginx
 

@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\AcessoController;
 use App\Http\Controllers\VagasController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/entrar', [AcessoController::class, 'mostrar'])->name('entrar');
+Route::post('/entrar', [AcessoController::class, 'entrar']);
+Route::post('/sair', [AcessoController::class, 'sair'])->name('sair');
 
 Route::get('/', [VagasController::class, 'index'])->name('vagas.index');
 Route::get('/resumo', [VagasController::class, 'resumo'])->name('vagas.resumo');

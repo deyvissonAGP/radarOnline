@@ -29,6 +29,9 @@
         .brand span { color: var(--accent); }
         nav a { margin-left: 18px; color: var(--muted); font-weight: 500; }
         nav a.ativo { color: var(--text); }
+        nav form { display: inline; margin: 0 0 0 18px; }
+        nav .sair { font: inherit; font-weight: 500; color: var(--muted); background: none; border: 0; padding: 0; cursor: pointer; }
+        nav .sair:hover { color: var(--text); }
         main { padding: 28px 0 60px; }
         .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
         .muted { color: var(--muted); }
@@ -46,11 +49,19 @@
 <header class="top">
     <div class="wrap">
         <a class="brand" href="{{ route('vagas.index') }}">📡 Radar de vagas <span>tech</span></a>
-        <nav>
-            <a href="{{ route('vagas.index') }}" @class(['ativo' => request()->routeIs('vagas.index')])>Vagas</a>
-            <a href="{{ route('vagas.resumo') }}" @class(['ativo' => request()->routeIs('vagas.resumo')])>Resumo</a>
-            <a href="{{ route('vagas.regras') }}" @class(['ativo' => request()->routeIs('vagas.regras')])>Regras</a>
-        </nav>
+        @unless (View::hasSection('sem_navegacao'))
+            <nav>
+                <a href="{{ route('vagas.index') }}" @class(['ativo' => request()->routeIs('vagas.index')])>Vagas</a>
+                <a href="{{ route('vagas.resumo') }}" @class(['ativo' => request()->routeIs('vagas.resumo')])>Resumo</a>
+                <a href="{{ route('vagas.regras') }}" @class(['ativo' => request()->routeIs('vagas.regras')])>Regras</a>
+                @if (session(\App\Radar\Services\Acesso::SESSAO))
+                    <form method="post" action="{{ route('sair') }}">
+                        @csrf
+                        <button type="submit" class="sair">Sair</button>
+                    </form>
+                @endif
+            </nav>
+        @endunless
     </div>
 </header>
 <main class="wrap">

@@ -52,7 +52,7 @@ docker compose exec app php artisan vagas:coletar
 
 Abra **http://localhost:8081**. A partir daí o serviço `scheduler` coleta sozinho a cada 3 horas enquanto o Docker estiver rodando.
 
-**Produção:** veja [PRODUCAO.md](PRODUCAO.md) (Docker com HTTPS pelo proxy do servidor, senha de acesso, backup diário e monitoramento).
+**Produção:** veja [PRODUCAO.md](PRODUCAO.md) (Docker com HTTPS pelo proxy do servidor, tela de login, backup diário e monitoramento).
 
 Para rodar os testes:
 

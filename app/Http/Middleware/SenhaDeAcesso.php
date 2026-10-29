@@ -2,24 +2,23 @@
 
 namespace App\Http\Middleware;
 
+use App\Radar\Services\Acesso;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\RateLimiter;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Protege o site inteiro com usuário e senha (HTTP Basic), definidos em
- * RADAR_USUARIO e RADAR_SENHA no .env. Use sempre atrás de HTTPS.
+ * Exige login no site inteiro (usuário e senha de RADAR_USUARIO e RADAR_SENHA).
  *
  * - Sem senha definida: em produção bloqueia tudo; em desenvolvimento deixa passar.
- * - Depois de 10 tentativas erradas por minuto, o IP espera um minuto.
+ * - Quem marcou "manter conectado" volta logado pelo cookie, sem digitar a senha.
  */
 class SenhaDeAcesso
 {
-    private const TENTATIVAS = 10;
+    /** Abertas: a tela de login e as rotas do monitor de disponibilidade. */
+    private const LIVRES = ['entrar', 'up', 'saude'];
 
-    /** Rotas abertas para o monitor de disponibilidade. */
-    private const LIVRES = ['up', 'saude'];
+    public function __construct(private readonly Acesso $acesso) {}
 
     public function handle(Request $request, Closure $next): Response
     {
@@ -27,31 +26,23 @@ class SenhaDeAcesso
             return $next($request);
         }
 
-        $usuario = (string) config('radar.acesso.usuario');
-        $senha = (string) config('radar.acesso.senha');
-
-        if ($senha === '') {
+        if (! $this->acesso->configurado()) {
             abort_if(app()->isProduction(), 503, 'Defina RADAR_USUARIO e RADAR_SENHA no .env.');
 
             return $next($request);
         }
 
-        $chave = 'senha-de-acesso:'.$request->ip();
-        if (RateLimiter::tooManyAttempts($chave, self::TENTATIVAS)) {
-            abort(429, 'Muitas tentativas. Espere um minuto.');
+        if ($request->session()->get(Acesso::SESSAO) === true) {
+            return $next($request);
         }
 
-        if (hash_equals($usuario, (string) $request->getUser()) && hash_equals($senha, (string) $request->getPassword())) {
-            RateLimiter::clear($chave);
+        if ($this->acesso->lembrarValido($request->cookie(Acesso::COOKIE))) {
+            $request->session()->regenerate();
+            $request->session()->put(Acesso::SESSAO, true);
 
             return $next($request);
         }
 
-        // Só conta como erro quando o navegador mandou credenciais (a primeira visita vem sem).
-        if ($request->getUser() !== null) {
-            RateLimiter::hit($chave, 60);
-        }
-
-        return response('Acesso restrito.', 401, ['WWW-Authenticate' => 'Basic realm="Radar de vagas", charset="UTF-8"']);
+        return redirect()->guest(route('entrar'));
     }
 }

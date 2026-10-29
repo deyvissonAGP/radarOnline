@@ -133,7 +133,7 @@ radar vagas:coletar                       # primeira coleta (1 a 2 minutos)
 radar vagas:notificar --marcar-enviadas   # evita receber centenas de vagas de uma vez
 ```
 
-Abra `https://radar.confeitae.com.br`: o navegador pede usuário e senha.
+Abra `https://radar.confeitae.com.br`: aparece a tela de login (usuário e senha do `.env`).
 
 ## 7. Monitoramento
 
